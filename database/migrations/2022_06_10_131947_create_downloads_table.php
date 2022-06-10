@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tv_shows', function (Blueprint $table) {
+        Schema::create('downloads', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('tmdb_id')->unique();
             $table->string('name');
-            $table->string('slug');
-            $table->string('created_year')->nullable();
-            $table->string('poster_path');
-            $table->bigInteger('visits')->default(1);
+            $table->text('web_url');
+            $table->integer('downloadable_id');
+            $table->string('downloadable_type');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tv_shows');
+        Schema::dropIfExists('downloads');
     }
 };
