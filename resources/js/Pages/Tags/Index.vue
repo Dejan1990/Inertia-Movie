@@ -11,7 +11,7 @@
         <section class="container mx-auto p-6 font-mono">
           <div class="w-full flex mb-4 p-2 justify-end">
             <Link
-              href="#"
+              :href="route('admin.tags.create')"
               class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg"
             >
               Create Tag
