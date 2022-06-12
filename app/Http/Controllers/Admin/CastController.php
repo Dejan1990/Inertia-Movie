@@ -40,12 +40,33 @@ class CastController extends Controller
             Cast::create([
                 'tmdb_id' => $tmdb_cast['id'],
                 'name'    => $tmdb_cast['name'],
-                'slug'    => Str::slug($tmdb_cast['name']),
+                //'slug'    => Str::slug($tmdb_cast['name']),
                 'poster_path' => $tmdb_cast['profile_path']
             ]); 
             return Redirect::back()->with('flash.banner', 'Cast created.');
         }
         
         return Redirect::back()->with('flash.banner', 'Api error.');
+    }
+
+    public function edit(Cast $cast)
+    {
+        return Inertia::render('Casts/Edit', ['cast' => $cast]);
+    }
+
+    public function update(Request $request, Cast $cast)
+    {
+        $cast->update($request->validate([
+            'name' => 'required',
+            'poster_path' => 'required'
+        ]));
+
+        return Redirect::route('admin.casts.index')->with('flash.banner', 'Cast Updated.');
+    }
+
+    public function destroy(Cast $cast)
+    {
+        $cast->delete();
+        return Redirect::back()->with('flash.banner', 'Cast Deleted.');
     }
 }
