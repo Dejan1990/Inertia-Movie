@@ -160,6 +160,7 @@ watch(search, (value) => {
     }
   );
 });
+
 function getCasts() {
   Inertia.get(
     "/admin/casts",
@@ -167,6 +168,16 @@ function getCasts() {
     {
       preserveState: true,
       replace: true,
+    }
+  );
+}
+
+function generateCast() {
+  Inertia.post(
+    "/admin/casts",
+    { castTMDBId: castTMDBId.value },
+    {
+      onFinish: () => (castTMDBId.value = ""),
     }
   );
 }
