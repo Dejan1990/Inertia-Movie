@@ -43,4 +43,34 @@ class TagController extends Controller
 
         return Redirect::route('admin.tags.index')->with('flash.banner', 'Tag Created.');
     }
+
+    public function edit(Tag $tag)
+    {
+        return Inertia::render('Tags/Edit', [
+            'tag' => $tag
+        ]);
+    }
+
+    public function update(Request $request, Tag $tag)
+    {
+        $request->validate([
+            'tagName' => ['required', 'string', 'min:2', 'max:50']
+        ]);
+
+        $tag->update([
+            'tag_name' => $request->input('tagName'),
+            'slug' => Str::slug($request->input('tagName'))
+        ]);
+
+        return Redirect::route('admin.tags.index')->with('flash.banner', 'Tag updated.');
+    }
+
+    public function destroy(Tag $tag)
+    {
+        $tag->delete();
+
+        return Redirect::route('admin.tags.index')
+            ->with('flash.banner', 'Tag deleted.')
+            ->with('flash.bannerStyle', 'danger');
+    }
 }

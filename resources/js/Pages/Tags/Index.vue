@@ -85,13 +85,13 @@
                     <td class="px-4 py-3 text-sm border">
                       <div class="flex justify-around">
                         <Link
-                          href="#"
+                          :href="route('admin.tags.edit', tag.id)"
                           class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
                         >
                           Edit
                         </Link>
                         <Link
-                          href="#"
+                          :href="route('admin.tags.destroy', tag.id)"
                           method="delete"
                           as="button"
                           type="button"
