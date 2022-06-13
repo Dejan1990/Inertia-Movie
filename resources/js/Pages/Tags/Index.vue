@@ -130,7 +130,7 @@ const perPage = ref(5);
 watch(search, (value) => {
   Inertia.get(
     "/admin/tags",
-    { search: value, perPage: perPage.value },
+    { ...(value != '' ? {search: value} : null), perPage: perPage.value },
     {
       preserveState: true,
       replace: true,
