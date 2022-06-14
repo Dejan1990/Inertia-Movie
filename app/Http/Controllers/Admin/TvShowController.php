@@ -49,4 +49,29 @@ class TvShowController extends Controller
         
         return Redirect::back()->with('flash.banner', 'Api error.');
     }
+
+    public function edit(TvShow $tvShow)
+    {
+        return Inertia::render('TvShows/Edit', ['tvShow' => $tvShow]);
+    }
+
+    public function update(Request $request, TvShow $tvShow)
+    {
+        $tvShow->update($request->validate([
+            'name'    => 'required',
+            'poster_path' => 'required'
+        ]));
+
+        return Redirect::route('admin.tv-shows.index')->with('flash.banner', 'Tv Show updated.');
+    }
+
+    public function destroy(TvShow $tvShow)
+    {
+        $tvShow->delete();
+
+        return Redirect::route('admin.tv-shows.index')
+            ->with('flash.banner', 'Tv Show deleted.')
+            ->with('flash.bannerStyle', 'danger');
+
+    }
 }
